@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ttFont sfntVersion="\x00\x01\x00\x00" ttLibVersion="4.16">
+
+  <fvar>
+
+    <!-- Optical Size -->
+    <Axis>
+      <AxisTag>opsz</AxisTag>
+      <Flags>0x0</Flags>
+      <MinValue>9.0</MinValue>
+      <DefaultValue>144.0</DefaultValue>
+      <MaxValue>144.0</MaxValue>
+      <AxisNameID>256</AxisNameID>
+    </Axis>
+
+    <!-- Weight -->
+    <Axis>
+      <AxisTag>wght</AxisTag>
+      <Flags>0x0</Flags>
+      <MinValue>100.0</MinValue>
+      <DefaultValue>900.0</DefaultValue>
+      <MaxValue>900.0</MaxValue>
+      <AxisNameID>257</AxisNameID>
+    </Axis>
+
+    <!-- soften -->
+    <Axis>
+      <AxisTag>SOFT</AxisTag>
+      <Flags>0x0</Flags>
+      <MinValue>0.0</MinValue>
+      <DefaultValue>100.0</DefaultValue>
+      <MaxValue>100.0</MaxValue>
+      <AxisNameID>258</AxisNameID>
+    </Axis>
+
+    <!-- wonk -->
+    <Axis>
+      <AxisTag>WONK</AxisTag>
+      <Flags>0x0</Flags>
+      <MinValue>0.0</MinValue>
+      <DefaultValue>1.0</DefaultValue>
+      <MaxValue>1.0</MaxValue>
+      <AxisNameID>259</AxisNameID>
+    </Axis>
+
+    <!-- Thin -->
+    <!-- PostScript: Fraunces144ptS100-Thin -->
+    <NamedInstance flags="0x0" postscriptNameID="357" subfamilyNameID="356">
+      <coord axis="opsz" value="144.0"/>
+      <coord axis="wght" value="100.0"/>
+      <coord axis="SOFT" value="100.0"/>
+      <coord axis="WONK" value="1.0"/>
+    </NamedInstance>
+
+    <!-- Light -->
+    <!-- PostScript: Fraunces144ptS100-Light -->
+    <NamedInstance flags="0x0" postscriptNameID="359" subfamilyNameID="358">
+      <coord axis="opsz" value="144.0"/>
+      <coord axis="wght" value="300.0"/>
+      <coord axis="SOFT" value="100.0"/>
+      <coord axis="WONK" value="1.0"/>
+    </NamedInstance>
+
+    <!-- Regular -->
+    <!-- PostScript: Fraunces144ptS100-Regular -->
+    <NamedInstance flags="0x0" postscriptNameID="361" subfamilyNameID="360">
+      <coord axis="opsz" value="144.0"/>
+      <coord axis="wght" value="400.0"/>
+      <coord axis="SOFT" value="100.0"/>
+      <coord axis="WONK" value="1.0"/>
+    </NamedInstance>
+
+    <!-- SemiBold -->
+    <!-- PostScript: Fraunces144ptS100-SemiBold -->
+    <NamedInstance flags="0x0" postscriptNameID="363" subfamilyNameID="362">
+      <coord axis="opsz" value="144.0"/>
+      <coord axis="wght" value="600.0"/>
+      <coord axis="SOFT" value="100.0"/>
+      <coord axis="WONK" value="1.0"/>
+    </NamedInstance>
+
+    <!-- Bold -->
+    <!-- PostScript: Fraunces144ptS100-Bold -->
+    <NamedInstance flags="0x0" postscriptNameID="365" subfamilyNameID="364">
+      <coord axis="opsz" value="144.0"/>
+      <coord axis="wght" value="700.0"/>
+      <coord axis="SOFT" value="100.0"/>
+      <coord axis="WONK" value="1.0"/>
+    </NamedInstance>
+
+    <!-- Black -->
+    <!-- PostScript: Fraunces144ptS100-Black -->
+    <NamedInstance flags="0x0" postscriptNameID="367" subfamilyNameID="366">
+      <coord axis="opsz" value="144.0"/>
+      <coord axis="wght" value="900.0"/>
+      <coord axis="SOFT" value="100.0"/>
+      <coord axis="WONK" value="1.0"/>
+    </NamedInstance>
+  </fvar>
+
+</ttFont>

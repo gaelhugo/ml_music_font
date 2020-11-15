@@ -1,0 +1,96 @@
+@font-face {
+  font-family: "flex";
+  src: url("../fonts/DecovarAlpha-VF.ttf");
+}
+
+/*
+Weight	              WMX2
+Slab	                TRMG
+Inline	              BLDA
+Shearded	            TRMD
+Rounded Slab	        TRMC
+Stripes	              SKLD
+Worm Terminal	        TRML
+Inline Skeleton	      SKLA
+Open Inline Terminal	TRMF
+Inline Terminal	      TRMK
+Worm	                BLDB
+Flared	              TRMB
+Rounded	              TRMA
+Worm Skeleton	        SKLB
+Bifurcated	          TRME
+*/
+
+:root {
+  --custom-WMX2: 0;
+  --custom-TRMG: 0;
+  --custom-BLDA: 0;
+  --custom-TRMD: 0;
+  --custom-TRMC: 0;
+  --custom-SKLD: 0;
+  --custom-TRML: 0;
+  --custom-SKLA: 0;
+  --custom-TRMF: 0;
+  --custom-TRMK: 0;
+  --custom-BLDB: 0;
+  --custom-TRMB: 0;
+  --custom-TRMA: 0;
+  --custom-SKLB: 0;
+  --custom-TRME: 0;
+  --custom-fontSize: 15vw;
+  --custom-fontStyle: normal;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0px;
+  padding: 0px;
+  background-color: black;
+  color: white;
+}
+#sliders {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  width: 180px;
+  z-index: 10;
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 15px;
+  padding: 20px;
+}
+#wrapper {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#sound {
+  position: absolute;
+  z-index: -1;
+}
+
+h1 {
+  font-family: "flex";
+  user-select: none;
+  width: 100%;
+  text-align: center;
+  font-weight: 10;
+  font-style: var(--custom-fontStyle);
+  font-size: var(--custom-fontSize);
+  font-variation-settings: "WMX2" var(--custom-WMX2), "TRMG" var(--custom-TRMG),
+    "BLDA" var(--custom-BLDA), "TRMD" var(--custom-TRMD),
+    "TRMC" var(--custom-TRMC), "SKLD" var(--custom-SKLD),
+    "TRML" var(--custom-TRML), "SKLA" var(--custom-SKLA),
+    "TRMF" var(--custom-TRMF), "TRMK" var(--custom-TRMK),
+    "BLDB" var(--custom-BLDB), "TRMB" var(--custom-TRMB),
+    "TRMA" var(--custom-TRMA), "SKLB" var(--custom-SKLB),
+    "TRME" var(--custom-TRME);
+}
+
+canvas {
+  position: absolute;
+}
