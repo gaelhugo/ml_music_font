@@ -14,8 +14,8 @@ $ npm i http-server
 ```
 
 ```sh
-$ git clone folder
-$ cd folder
+$ git clone https://github.com/gaelhugo/ml_music_font.git
+$ cd ml_music_font
 $ http-server
 ```
 
