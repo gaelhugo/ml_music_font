@@ -343,7 +343,7 @@ for (let i = 0; i < result.length; i++) {
 
 # Appendix
 
-Ml5js provides also very useful function not yet implemented in that demo. The datas and the model are saved as a json file and the weights are saved as binary files next to the model.
+Ml5js provides also very useful function not implemented in that demo yet. The datas and the model are saved as a json file and the weights are saved as binary files next to the model.
 
 - Saving and Loading data (useful to retrain a existing model)
 
