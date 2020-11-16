@@ -21,8 +21,6 @@ $ http-server
 
 The goal of that demo is to use a custom NeuralNetwork model to control the complex graphical components of a variable font with music inputs.
 
-# Functions
-
 Beside the sliders used to set the initial font parameters, there is 3 ways to interact with the experiment:
 
 - If model is not trained yet, click on `spacebar`to record data for 6 seconds
