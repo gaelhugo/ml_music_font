@@ -183,7 +183,7 @@ CLASSIFICATION EXAMPLE
 REGRESSION EXAMPLE
 ![](https://www.onemore-studio.com/data/gifs/weights.gif)
 
-To control a variable font, and generate unexpected variations in-between predictions, we are going to use the regression task in our model.
+To control a variable font, and generate unexpected variations in-between predictions, we are going to use the `regression` task in our model.
 
 # ML5 logic to create a custom NeuralNetwork
 
