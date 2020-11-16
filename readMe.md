@@ -1,4 +1,4 @@
-# CILEX TECH TALK : Musical controller for Variable Font with ML
+# CILEX TECH TALK: Musical controller for Variable Font with ML
 Implementation of [ML5.js](https://ml5js.org) used to control a variable font.
 Using [TONE.JS](https://tonejs.github.io/) to handle audio data extraction through fft.
 This example provides all necessary functions to create a model, add sound as input, train the model and run some predictions.
@@ -10,8 +10,8 @@ Using [NODE JS](https://nodejs.org/) for local server (http-server)
 $ npm i http-server
 ```
 ```sh
-$ git clone folder
-$ cd folder
+$ git clone https://github.com/gaelhugo/ml_music_font.git
+$ cd ml_music_font
 $ http-server
 ```
 
@@ -60,35 +60,22 @@ It will generate an XML file with all axis, and the parameters' range.
 Once these parameters identified, it's easy to access them through simple css styling.
 
 
-# CSS for Variable Fonts
+# CSS for Variable Fonts [(ref)](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Fonts/Variable_Fonts_Guide)
 
-There is many ways to interact with variable font axis in css. A basic usage example: [(ref)](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Fonts/Variable_Fonts_Guide)
+There is many ways to interact with variable font axis in css. A basic usage example: 
 ```css
 /* Set the default values */
 :root {
-	--SLNT: 0;
 	--GRAD: 0;
-	--WDTH: 12;
 }
 /* Change value for these elements and their children */
-.slanted {
-	--SLNT: 10;
-}
 .grade-light {
 	--GRAD: -1;
 }
-.grade-normal {
-	--GRAD: 0;
-}
-.grade-heavy {
-	--GRAD: 1;
-}
 /* Apply whatever value is kept in the CSS variables */
-.slanted,
-.grade-light,
-.grade-normal,
-.grade-heavy {
-	font-variation-settings: 'SLNT' var(--SLNT), 'GRAD' var(--GRAD), 'WDTH' var(--WDTH);
+
+.grade-light {
+    font-variation-settings:  'GRAD' var(--GRAD);
 }
 /* Animation option*/
 @keyframes width-animation {
@@ -163,8 +150,9 @@ When it comes to build relatively complex machine learning structures, or how to
 `ML5` comes with a preselected choice of models, ready to use, such as mobilenet (image vision), coco SSD (object detection), posenet (body segmentation), styletransfer and even "basic" gan like (pix2pix). (a good part of TFJS [models](https://www.tensorflow.org/js/models) have been wrapped in `ML5`)
 Basically, `ML5` provide simple access to "not-so-simple" ML algorithms. With very few coding notion, it provides powerful functionnalities, from creating a model, to train a model and finally run predictions.
 
-![](https://www.onemore-studio.com/data/gifs/rnn2.gif)
 (ml5 sketchrnn cat model example)
+![](https://www.onemore-studio.com/data/gifs/rnn2.gif)
+
 
 It provides also some very useful function like [features extraction](https://learn.ml5js.org/#/reference/feature-extractor), [classification](https://learn.ml5js.org/#/reference/knn-classifier) and even custom [Neural Network](https://learn.ml5js.org/#/reference/neural-network) creation. 
 
