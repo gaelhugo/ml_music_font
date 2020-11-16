@@ -34,6 +34,8 @@ First because the way a variable fonts work
 As you can see, a variables font not only changes its weight and width, but the shape of each letter too.
 That means that depending on css parameters, the drawing of the letter will adapt itself.
 
+Nice [website](https://v-fonts.com/) with interactive variable fonts preview
+
 ![](https://onemore-studio.com/data/gifs/TYPOLabs_VariableFonts.gif)
 
 To offer more transformation options, there are a bunch of custom parameters that can have an effect on the type.
