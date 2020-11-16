@@ -340,3 +340,32 @@ for (let i = 0; i < result.length; i++) {
   document.documentElement.style.setProperty(param, value);
 }
 ```
+
+# Appendix
+
+Ml5js provides also very useful function not yet implemented in that demo. The datas and the model are saved as a json file and the weights are saved as binary files next to the model.
+
+- Saving and Loading data (useful to retrain a existing model)
+
+```js
+this.nn.saveData();
+```
+
+```js
+this.nn.loadData(data, callback);
+```
+
+- Saving and Loading trained model (no need to train the model, ready for prediction)
+
+```js
+this.nn.save();
+```
+
+```js
+const modelInfo = {
+  model: "path/to/model.json",
+  metadata: "path/to/model_meta.json",
+  weights: "path/to/model.weights.bin",
+};
+this.nn.load(modelInfo, callback);
+```
