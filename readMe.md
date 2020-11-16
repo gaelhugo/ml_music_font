@@ -369,3 +369,10 @@ const modelInfo = {
 };
 this.nn.load(modelInfo, callback);
 ```
+
+Material design animated [icons](https://typogram.github.io/Anicons/index.html)
+
+Variable font can also be used with any kind of drawings with custom axis. [ref](https://www.axis-praxis.org/specimens/zycon)
+
+[Variable fonts history](https://www.axis-praxis.org/resources)
+
