@@ -302,8 +302,6 @@ The size of a batch must be more than or equal to one and less than or equal to 
 
 The number of epochs can be set to an integer value between one and infinity. You can run the algorithm for as long as you like and even stop it using other criteria besides a fixed number of epochs (...)
 
-You must specify the batch size and number of epochs for a learning algorithm.
-
 There are no magic rules for how to configure these parameters. You must try different values and see what works best for your problem.
 
 # - ML5.js debug view
