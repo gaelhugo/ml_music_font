@@ -3,7 +3,7 @@
 Implementation of [ML5.js](https://ml5js.org) used to control a variable font.
 Using [TONE.JS](https://tonejs.github.io/) to handle audio data extraction through fft.
 This example provides all necessary functions to create a model, add sound as input, train the model and run some predictions.
-Everything happens in the browser, using [TENSORFLOW JS](https://www.tensorflow.org/js) behnind the scene for all the machine learning infrastucture.
+Everything happens in the browser, using [TENSORFLOW JS](https://www.tensorflow.org/js) behind the scene for all the machine learning infrastucture.
 
 # Demo
 
