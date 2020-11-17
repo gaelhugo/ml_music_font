@@ -68,6 +68,7 @@ class MLVariableFont {
     //neural net
     this.modelIsTrained = false;
     this.customNeuraNet = new NeuralNet(FREQ, PARAMS.length);
+    // this.customNeuraNet.loadModel(this.handlers.modelReady);
     document.removeEventListener("click", this.handlers.click);
   }
 
@@ -75,6 +76,7 @@ class MLVariableFont {
     this.modelIsTrained = true;
     this.canPredict = true;
     this.soundTool.color = "rgb(0,255,0,0.3)";
+    //  this.customNeuraNet.saveModel();
   }
 
   onkeydown(e) {

@@ -65,5 +65,12 @@ export default class NeuralNet {
   saveModel() {
     this.nn.save();
   }
-  loadModel() {}
+  loadModel(callback) {
+    // const modelInfo = {
+    //   model: "path/to/model.json",
+    //   metadata: "path/to/model_meta.json",
+    //   weights: "path/to/model.weights.bin",
+    // };
+    // this.nn.load(modelInfo, callback);
+  }
 }
