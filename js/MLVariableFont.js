@@ -30,7 +30,6 @@ const FREQ = 1024;
 
 class MLVariableFont {
   constructor() {
-    this.controllers = [];
     this.handlers = {
       keydown: this.onkeydown.bind(this),
       click: this.preset.bind(this),
@@ -39,6 +38,7 @@ class MLVariableFont {
       onPrediction: this.gotPrediction.bind(this),
     };
 
+    this.controllers = [];
     // SLIDERS INITIALISATION
     for (const param of PARAMS) {
       const options = {
