@@ -9,64 +9,77 @@ import Slider from "./Slider.js";
 import NeuralNet from "./NeuralNet.js";
 import SoundTool from "./SoundTool.js";
 
+const PARAMS = [
+  { name: "--custom-WMX2", range: [0, 1000] },
+  { name: "--custom-TRMG", range: [0, 1000] },
+  { name: "--custom-BLDA", range: [0, 1000] },
+  { name: "--custom-TRMD", range: [0, 1000] },
+  { name: "--custom-TRMC", range: [0, 1000] },
+  { name: "--custom-SKLD", range: [0, 1000] },
+  { name: "--custom-TRML", range: [0, 1000] },
+  { name: "--custom-SKLA", range: [0, 1000] },
+  { name: "--custom-TRMF", range: [0, 1000] },
+  { name: "--custom-TRMK", range: [0, 1000] },
+  { name: "--custom-BLDB", range: [0, 1000] },
+  { name: "--custom-TRMB", range: [0, 1000] },
+  { name: "--custom-TRMA", range: [0, 1000] },
+  { name: "--custom-SKLB", range: [0, 1000] },
+  { name: "--custom-TRME", range: [0, 1000] },
+];
+const FREQ = 1024;
+
 class MLVariableFont {
   constructor() {
     this.controllers = [];
-    const params = [
-      { name: "--custom-WMX2", range: [0, 1000] },
-      { name: "--custom-TRMG", range: [0, 1000] },
-      { name: "--custom-BLDA", range: [0, 1000] },
-      { name: "--custom-TRMD", range: [0, 1000] },
-      { name: "--custom-TRMC", range: [0, 1000] },
-      { name: "--custom-SKLD", range: [0, 1000] },
-      { name: "--custom-TRML", range: [0, 1000] },
-      { name: "--custom-SKLA", range: [0, 1000] },
-      { name: "--custom-TRMF", range: [0, 1000] },
-      { name: "--custom-TRMK", range: [0, 1000] },
-      { name: "--custom-BLDB", range: [0, 1000] },
-      { name: "--custom-TRMB", range: [0, 1000] },
-      { name: "--custom-TRMA", range: [0, 1000] },
-      { name: "--custom-SKLB", range: [0, 1000] },
-      { name: "--custom-TRME", range: [0, 1000] },
-    ];
+    this.handlers = {
+      keydown: this.onkeydown.bind(this),
+      click: this.preset.bind(this),
+      slide: this.onSlide.bind(this),
+      modelReady: this.modelReady.bind(this),
+      onPrediction: this.gotPrediction.bind(this),
+    };
 
     // SLIDERS INITIALISATION
-    for (const param of params) {
+    for (const param of PARAMS) {
       const options = {
         min: param.range[0],
         max: param.range[1],
         step: 1,
         change: "input",
         param: param.name,
-        callback: this.onSlide.bind(this),
+        callback: this.handlers.slide,
       };
       const slider = new Slider(0, options, document.getElementById("sliders"));
       this.controllers.push(slider);
     }
 
+    document.addEventListener("click", this.handlers.click);
+    document.addEventListener("keydown", this.handlers.keydown);
+  }
+
+  preset() {
     // sound
-    const freq = 1024;
+    Tone.context.resume();
     this.soundTool = new SoundTool(document.getElementById("sound"));
-    this.soundTool.initAnalyser(freq);
+    this.soundTool.initAnalyser(FREQ);
     this.soundTool.getUserMedia();
     // SHOW THE FFT DATA ON SCREEN
     this.soundTool.start(true);
-
     //neural net
     this.modelIsTrained = false;
-    //
-    this.customNeuraNet = new NeuralNet(freq, params.length);
-    document.addEventListener("keydown", this.onkeydown.bind(this));
+    this.customNeuraNet = new NeuralNet(FREQ, PARAMS.length);
+    document.removeEventListener("click", this.handlers.click);
+  }
+
+  modelReady() {
+    this.modelIsTrained = true;
+    this.canPredict = true;
+    this.soundTool.color = "rgb(0,255,0,0.3)";
   }
 
   onkeydown(e) {
     if (e.key == "Enter") {
-      this.customNeuraNet.train(() => {
-        this.modelIsTrained = true;
-        this.canPredict = true;
-        this.soundTool.color = "rgb(0,255,0,0.3)";
-        console.log("model properly trained");
-      });
+      this.customNeuraNet.train(this.handlers.modelReady);
     }
 
     if (e.keyCode == 32) {
@@ -90,7 +103,6 @@ class MLVariableFont {
 
         // record data for 6 seconds
         setTimeout(() => {
-          console.log("record done");
           this.soundTool.removeEventListener("ondata");
           this.soundTool.color = "rgb(0,0,255,0.3)";
         }, 6000);
@@ -102,7 +114,7 @@ class MLVariableFont {
         this.soundTool.addEventListener("ondata", (data) => {
           if (this.canPredict) {
             this.canPredict = false;
-            this.customNeuraNet.predict(data, this.gotResult, this);
+            this.customNeuraNet.predict(data, this.handlers.onPrediction);
           }
         });
       }
@@ -113,7 +125,7 @@ class MLVariableFont {
    * @param {string} error error message if anything goes wrong
    * @param {array} result prediction results as array of predictions
    */
-  gotResult(error, result) {
+  gotPrediction(error, result) {
     if (error) {
       console.log(error);
       return;
@@ -123,13 +135,11 @@ class MLVariableFont {
      * change the font parameters accordingly
      */
     for (let i = 0; i < result.length; i++) {
-      const param = result[i];
+      const value = result[i].value;
       const slider = this.controllers[i].slider;
-      const value = param.value;
-
       slider.value = value;
-      const _param = slider.getAttribute("data-param");
-      document.documentElement.style.setProperty(_param, value);
+      const param = slider.getAttribute("data-param");
+      document.documentElement.style.setProperty(param, value);
     }
     this.canPredict = true;
   }

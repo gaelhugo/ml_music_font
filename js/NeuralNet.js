@@ -55,7 +55,7 @@ export default class NeuralNet {
    * @param {function} callback function to be called when prediction is complete
    */
   predict(inputs, callback, scope) {
-    this.nn.predict(inputs, callback.bind(scope));
+    this.nn.predict(inputs, callback);
   }
 
   saveData() {
