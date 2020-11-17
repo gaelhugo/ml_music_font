@@ -295,7 +295,7 @@ this.nn.train(options, callback);
 
 # - note about Batch Size and Epoch ([ref](https://machinelearningmastery.com/difference-between-a-batch-and-an-epoch/#:~:text=The%20number%20of%20epochs%20is%20the%20number%20of%20complete%20passes,value%20between%20one%20and%20infinity))
 
-`What Is the Difference Between Batch and Epoch?`
+`What Is the Difference Between Batch and Epoch?`<br/>
 The batch size is a number of samples processed before the model is updated.
 The number of epochs is the number of complete passes through the training dataset.
 The size of a batch must be more than or equal to one and less than or equal to the number of samples in the training dataset.
