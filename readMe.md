@@ -300,9 +300,7 @@ The batch size is a number of samples processed before the model is updated.
 The number of epochs is the number of complete passes through the training dataset.
 The size of a batch must be more than or equal to one and less than or equal to the number of samples in the training dataset.
 
-The number of epochs can be set to an integer value between one and infinity. You can run the algorithm for as long as you like and even stop it using other criteria besides a fixed number of epochs, such as a change (or lack of change) in model error over time.
-
-They are both integer values and they are both hyperparameters for the learning algorithm, e.g. parameters for the learning process, not internal model parameters found by the learning process.
+The number of epochs can be set to an integer value between one and infinity. You can run the algorithm for as long as you like and even stop it using other criteria besides a fixed number of epochs (...)
 
 You must specify the batch size and number of epochs for a learning algorithm.
 
@@ -369,10 +367,11 @@ const modelInfo = {
 };
 this.nn.load(modelInfo, callback);
 ```
-___
+
+---
+
 Material design animated [icons](https://typogram.github.io/Anicons/index.html)
 
 Variable font can also be used with any kind of drawings with custom axis. [ref](https://www.axis-praxis.org/specimens/zycon)
 
 [Variable fonts history](https://www.axis-praxis.org/resources)
-
