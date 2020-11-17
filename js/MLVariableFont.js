@@ -80,7 +80,7 @@ class MLVariableFont {
   }
 
   onkeydown(e) {
-    if (e.key == "Enter") {
+    if (e.keyCode == 13) {
       this.customNeuraNet.train(this.handlers.modelReady);
     }
 
