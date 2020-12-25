@@ -27,12 +27,14 @@ const PARAMS = [
   { name: "--custom-TRME", range: [0, 1000] },
 ];
 const FREQ = 1024;
+const MESH_POINTS = 468 * 3;
 
 class MLVariableFont {
   constructor() {
     this.handlers = {
       keydown: this.onkeydown.bind(this),
-      click: this.preset.bind(this),
+      // click: this.preset.bind(this),
+      click: this.presetWithFaceMesh.bind(this),
       slide: this.onSlide.bind(this),
       modelReady: this.modelReady.bind(this),
       onPrediction: this.gotPrediction.bind(this),
@@ -53,8 +55,76 @@ class MLVariableFont {
       this.controllers.push(slider);
     }
 
+    let videoIsReady = false;
+    this.meshColor = "rgb(0,0,255,0.3)";
+
     document.addEventListener("click", this.handlers.click);
     document.addEventListener("keydown", this.handlers.keydown);
+  }
+
+  presetWithFaceMesh() {
+    /*
+    INIT CAMERA 
+    */
+    if (!this.videoIsReady) {
+      this.video = document.createElement("video");
+      this.video_wrapper = document.getElementById("sound");
+      this.video_wrapper.appendChild(this.video);
+      this.canvas = document.createElement("canvas");
+      this.ctx = this.canvas.getContext("2d");
+      this.video_wrapper.appendChild(this.canvas);
+      this.video.width = this.canvas.width = 640;
+      this.video.height = this.canvas.height = 480;
+      this.loadVideo();
+      this.loadFaceMeshModel();
+      //neural net
+      this.modelIsTrained = false;
+      this.customNeuraNet = new NeuralNet(MESH_POINTS, PARAMS.length);
+    }
+  }
+  loadVideo() {
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+      navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {
+        // this.video.src = window.URL.createObjectURL(stream);
+        this.video.srcObject = stream;
+        this.video.play();
+        this.videoIsReady = true;
+      });
+    }
+  }
+
+  loadFaceMeshModel() {
+    this.facemesh = ml5.facemesh(
+      this.video,
+      this.faceMeshModelReady.bind(this)
+    );
+  }
+
+  faceMeshModelReady() {
+    console.log("MODEL READY");
+    this.facemesh.on("predict", (results) => {
+      this.predictions = results;
+
+      // console.log(this.predictions[0].scaledMesh.length);
+      this.ctx.clearRect(0, 0, 640, 480);
+      if (this.predictions[0]) {
+        const data = this.predictions[0].scaledMesh.flat(1);
+        if (this.recordMeshData) {
+          // console.log(data.length);
+          this.customNeuraNet.addData(data, this.target);
+        }
+        if (this.canPredict) {
+          this.customNeuraNet.predict(data, this.handlers.onPrediction);
+        }
+        this.ctx.fillStyle = this.meshColor;
+        this.predictions[0].scaledMesh.forEach((item, index) => {
+          this.ctx.beginPath();
+          this.ctx.arc(item[0], item[1], 2, 0, Math.PI * 2, false);
+          this.ctx.fill();
+          this.ctx.closePath();
+        });
+      }
+    });
   }
 
   preset() {
@@ -75,7 +145,11 @@ class MLVariableFont {
   modelReady() {
     this.modelIsTrained = true;
     this.canPredict = true;
-    this.soundTool.color = "rgb(0,255,0,0.3)";
+    if (this.soundTool) {
+      this.soundTool.color = "rgb(0,255,0,0.3)";
+    } else {
+      this.meshColor = "rgb(0,255,0,0.3)";
+    }
     //  this.customNeuraNet.saveModel();
   }
 
@@ -92,33 +166,46 @@ class MLVariableFont {
        */
       if (!this.modelIsTrained) {
         // get all values
-        const target = {};
+        this.target = {};
         for (let i = 0; i < this.controllers.length; i++) {
           const slider = this.controllers[i].slider;
-          target[i] = parseInt(slider.value);
+          this.target[i] = parseInt(slider.value);
         }
-        this.soundTool.color = "rgb(255,0,0,0.3)";
-        // add data to the model
-        this.soundTool.addEventListener("ondata", (data) => {
-          this.customNeuraNet.addData(data, target);
-        });
+        if (this.soundTool) {
+          this.soundTool.color = "rgb(255,0,0,0.3)";
+          // add data to the model
+          this.soundTool.addEventListener("ondata", (data) => {
+            this.customNeuraNet.addData(data, this.target);
+          });
 
-        // record data for 6 seconds
-        setTimeout(() => {
-          this.soundTool.removeEventListener("ondata");
-          this.soundTool.color = "rgb(0,0,255,0.3)";
-        }, 6000);
+          // record data for 6 seconds
+          setTimeout(() => {
+            this.soundTool.removeEventListener("ondata");
+            this.soundTool.color = "rgb(0,0,255,0.3)";
+          }, 6000);
+        } else {
+          this.meshColor = "rgb(255,0,0,0.3)";
+          this.recordMeshData = true;
+          // record data for 6 seconds
+          setTimeout(() => {
+            this.recordMeshData = false;
+            this.meshColor = "rgb(0,0,255,0.3)";
+          }, 6000);
+        }
       } else {
         /**
          * If the model is trained
          * predict the slider position base on the sound input
          */
-        this.soundTool.addEventListener("ondata", (data) => {
-          if (this.canPredict) {
-            this.canPredict = false;
-            this.customNeuraNet.predict(data, this.handlers.onPrediction);
-          }
-        });
+        if (this.soundTool) {
+          this.soundTool.addEventListener("ondata", (data) => {
+            if (this.canPredict) {
+              this.canPredict = false;
+              this.customNeuraNet.predict(data, this.handlers.onPrediction);
+            }
+          });
+        } else {
+        }
       }
     }
   }

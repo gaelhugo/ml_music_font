@@ -94,3 +94,10 @@ h1 {
 canvas {
   position: absolute;
 }
+#sound canvas {
+  position: absolute;
+  left: 0px;
+}
+video {
+  display: none;
+}
