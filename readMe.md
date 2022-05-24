@@ -379,4 +379,4 @@ Variable font can also be used with any kind of drawings with custom axis. [ref]
 [ml5](https://ml5js.org/#:~:text=https://ml5js.org) <br/>
 [decovar font](https://github.com/googlefonts/decovar/#:~:text=decovar%20variable%20font) <br/>
 
-Example provided as examplein the context of a talk as introduction of a machine learning used with variable fonts<br/> Please notify the author if you're planning to use it.
+Example provided as example in the context of a talk about usage of machine learning used with variable fonts<br/> Please notify the author if you're planning to use it.
