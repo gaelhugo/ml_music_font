@@ -373,3 +373,10 @@ Material design animated [icons](https://typogram.github.io/Anicons/index.html)
 Variable font can also be used with any kind of drawings with custom axis. [ref](https://www.axis-praxis.org/specimens/zycon)
 
 [Variable fonts history](https://www.axis-praxis.org/resources)
+
+# Usage and citation
+
+[ref](https://ml5js.org/#:~:text=https://ml5js.org <br/>
+[ref](https://github.com/googlefonts/decovar/#:~:text=decovar%20variable%20font) <br/>
+
+Example provided as example @ECAL in the context of an introduction of a machine learning class.<br/> Please notify the author if you're planning to use it.
