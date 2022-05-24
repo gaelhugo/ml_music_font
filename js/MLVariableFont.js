@@ -28,13 +28,15 @@ const PARAMS = [
 ];
 const FREQ = 1024;
 const MESH_POINTS = 468 * 3;
+const HAND_POINTS = 21 * 2;
 
 class MLVariableFont {
   constructor() {
     this.handlers = {
       keydown: this.onkeydown.bind(this),
       // click: this.preset.bind(this),
-      click: this.presetWithFaceMesh.bind(this),
+      // click: this.presetWithFaceMesh.bind(this),
+      click: this.presetWithHandPose.bind(this),
       slide: this.onSlide.bind(this),
       modelReady: this.modelReady.bind(this),
       onPrediction: this.gotPrediction.bind(this),
@@ -80,8 +82,28 @@ class MLVariableFont {
       //neural net
       this.modelIsTrained = false;
       this.customNeuraNet = new NeuralNet(MESH_POINTS, PARAMS.length);
+      // this.customNeuraNet.loadModel(this.handlers.modelReady);
     }
   }
+
+  presetWithHandPose() {
+    if (!this.videoIsReady) {
+      this.video = document.createElement("video");
+      this.video_wrapper = document.getElementById("sound");
+      this.video_wrapper.appendChild(this.video);
+      this.canvas = document.createElement("canvas");
+      this.ctx = this.canvas.getContext("2d");
+      this.video_wrapper.appendChild(this.canvas);
+      this.video.width = this.canvas.width = 640;
+      this.video.height = this.canvas.height = 480;
+      this.loadVideo();
+      this.loadHandPoseModel();
+      //neural net
+      this.modelIsTrained = false;
+      this.customNeuraNet = new NeuralNet(HAND_POINTS, PARAMS.length);
+    }
+  }
+
   loadVideo() {
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
       navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {
@@ -98,6 +120,39 @@ class MLVariableFont {
       this.video,
       this.faceMeshModelReady.bind(this)
     );
+  }
+
+  loadHandPoseModel() {
+    this.handpose = ml5.handpose(
+      this.video,
+      this.handPoseModelReady.bind(this)
+    );
+  }
+
+  handPoseModelReady() {
+    console.log("HANDPOSE READY");
+    this.handpose.on("predict", (results) => {
+      this.predictions = results;
+      this.ctx.clearRect(0, 0, 640, 480);
+      this.ctx.fillStyle = this.meshColor;
+      if (this.predictions[0]) {
+        const data = this.predictions[0].landmarks.flat(1);
+        if (this.recordMeshData) {
+          // console.log(data.length);
+          this.customNeuraNet.addData(data, this.target);
+        }
+        if (this.canPredict) {
+          this.customNeuraNet.predict(data, this.handlers.onPrediction);
+        }
+        for (let j = 0; j < this.predictions[0].landmarks.length; j += 1) {
+          const keypoint = this.predictions[0].landmarks[j];
+          this.ctx.beginPath();
+          this.ctx.arc(keypoint[0], keypoint[1], 10, 0, Math.PI * 2, false);
+          this.ctx.fill();
+          this.ctx.closePath();
+        }
+      }
+    });
   }
 
   faceMeshModelReady() {
@@ -151,6 +206,7 @@ class MLVariableFont {
       this.meshColor = "rgb(0,255,0,0.3)";
     }
     //  this.customNeuraNet.saveModel();
+    console.log("MODEL READY");
   }
 
   onkeydown(e) {
